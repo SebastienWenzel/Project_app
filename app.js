@@ -1,12 +1,14 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
-const app = express();
 //si aucun fichier n'est spécifier dans le require (par defaut index.js)
-const index = require('./routes');  
+const index = require('./routes'); 
+require('./database');
+
+const app = express();
 //spécifier le port
 const port = process.env.PORT || 3000;
- 
+
 //définir le folder pour nos vues
 app.set('views', path.join(__dirname, 'views'));
 //view engine permet éviter de réécrire extension
@@ -19,7 +21,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 //data sous un autre format que json
 app.use(express.urlencoded({extended: true}));
- 
 //route
 app.use(index);
  
